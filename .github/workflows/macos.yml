@@ -12,7 +12,7 @@ jobs:
     runs-on: macos-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode.app
@@ -38,7 +38,7 @@ jobs:
                       WechatExporter.dmg
 
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: WechatExporter-macOS
         path: build/Build/Products/Release/WechatExporter.dmg
