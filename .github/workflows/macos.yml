@@ -16,9 +16,8 @@ jobs:
     
     - name: Install dependencies
       run: |
-        brew install jsoncpp libxml2 sqlite3 libplist
-        sudo ln -sf $(brew --prefix)/opt/jsoncpp/include/jsoncpp/json $(brew --prefix)/include/json
-        sudo ln -sf $(brew --prefix)/opt/jsoncpp/lib/*.dylib $(brew --prefix)/lib/
+        brew install jsoncpp libxml2 sqlite3 libplist protobuf
+        sudo ln -sf $(brew --prefix)/opt/protobuf/include/google/protobuf $(brew --prefix)/include/google/protobuf
     
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode.app
@@ -30,7 +29,7 @@ jobs:
                    -configuration Release \
                    HEADER_SEARCH_PATHS="$(brew --prefix)/include $(SDKROOT)/usr/include/libxml2" \
                    LIBRARY_SEARCH_PATHS="$(brew --prefix)/lib" \
-                   OTHER_LDFLAGS="-ljsoncpp" \
+                   OTHER_LDFLAGS="-lprotobuf -ljsoncpp" \
                    -derivedDataPath build
                    
     - name: Create DMG
