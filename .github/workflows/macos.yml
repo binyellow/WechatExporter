@@ -1,12 +1,3 @@
-name: Build macOS App
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: macos-latest
@@ -27,18 +18,19 @@ jobs:
     - name: Create DMG
       run: |
         cd build/Build/Products/Release
-        # 创建临时目录用于DMG
         mkdir -p dmg
         cp -r WechatExporter.app dmg/
-        # 创建DMG
         hdiutil create -volname "WechatExporter" \
                       -srcfolder dmg \
                       -ov \
                       -format UDZO \
                       WechatExporter.dmg
 
+    - name: Debug Path
+      run: ls -R build/Build/Products/Release/
+
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: WechatExporter-macOS
         path: build/Build/Products/Release/WechatExporter.dmg
