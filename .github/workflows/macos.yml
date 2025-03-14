@@ -1,0 +1,50 @@
+name: Build macOS App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode.app
+      
+    - name: Build
+      run: |
+        xcodebuild -project WechatExporter.xcodeproj \
+                   -scheme WechatExporter \
+                   -configuration Release \
+                   -derivedDataPath build
+                   
+    - name: Create DMG
+      run: |
+        cd build/Build/Products/Release
+        # 创建临时目录用于DMG
+        mkdir -p dmg
+        cp -r WechatExporter.app dmg/
+        # 创建DMG
+        hdiutil create -volname "WechatExporter" \
+                      -srcfolder dmg \
+                      -ov \
+                      -format UDZO \
+                      WechatExporter.dmg
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: WechatExporter-macOS
+        path: build/Build/Products/Release/WechatExporter.dmg
+        
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/Build/Products/Release/WechatExporter.dmg

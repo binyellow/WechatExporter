@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
+@interface ViewController : NSViewController <NSSearchFieldDelegate>
 
 @property (weak) IBOutlet NSTextField *lblITunes;
 @property (weak) IBOutlet NSButton *btnExport;
@@ -21,6 +21,9 @@
 @property (weak) IBOutlet NSButton *btnToggleAll;
 @property (weak) IBOutlet NSScrollView *sclSessions;
 @property (weak) IBOutlet NSTableView *tblSessions;
+@property (weak) IBOutlet NSSearchField *searchField;
+@property (strong) NSArray *originalDataSource;  // 存储原始数据
+@property (strong) NSArray *filteredDataSource;  // 存储过滤后的数据
 
 @property (weak) IBOutlet NSButton *btnBackup;
 @property (weak) IBOutlet NSButton *btnOutput;

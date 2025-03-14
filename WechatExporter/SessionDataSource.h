@@ -45,8 +45,12 @@
 
 @property (nonatomic, assign) NSInteger rowInProgress;
 @property (nonatomic, assign) NSUInteger numberOfMsgExported;
+@property (nonatomic, strong) NSArray *originalItems;
+@property (nonatomic, strong) NSArray *filteredItems;
+@property (nonatomic, copy) NSString *searchText;
 
 - (void)loadData:(const std::vector<std::pair<Friend, std::vector<Session>>> *)usersAndSessions withAllUsers:(BOOL)allUsers indexOfSelectedUser:(NSInteger)indexOfSelectedUser includesSubscription:(BOOL)includesSubscriptions;
+- (void)filterContentForSearchText:(NSString *)searchText;
 - (void)getSelectedUserAndSessions:(std::map<std::string, std::map<std::string, void *>>&)usersAndSessions;
 
 - (void)bindCellView:(NSTableCellView *)cellView atRow:(NSInteger)row andColumnId:(NSString *)identifier;

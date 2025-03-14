@@ -266,7 +266,7 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return m_sessions.count;
+    return self.filteredItems ? self.filteredItems.count : m_sessions.count;
 }
 
 /*

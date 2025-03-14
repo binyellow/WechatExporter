@@ -139,6 +139,9 @@
     
     m_columns = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.tblSessions.numberOfColumns)];
     
+    // 设置搜索框代理
+    self.searchField.delegate = self;
+    
     self.popupBackup.autoresizingMask = NSViewMinYMargin | NSViewWidthSizable;
     self.btnBackup.autoresizingMask = NSViewMinXMargin | NSViewMinYMargin;
     
