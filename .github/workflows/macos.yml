@@ -16,7 +16,7 @@ jobs:
     
     - name: Install dependencies
       run: |
-        brew install jsoncpp libxml2 sqlite3 libplist
+        brew install jsoncpp libxml2 sqlite3 libplist json-c
     
     - name: Select Xcode
       run: sudo xcode-select -s /Applications/Xcode.app
